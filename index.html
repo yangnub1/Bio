@@ -75,20 +75,24 @@
             align-items: center;
         }
 
-        .typing-text {
-            font-size: 2rem;
-            font-weight: 300;
-            color: #4CAF50;
-            letter-spacing: 0.05em;
-            display: inline-block;
-            padding: 10px;
-            border-right: 3px solid #4CAF50;
-            white-space: nowrap;
-            overflow: hidden;
-	    white-space: normal; /* Cho phép xuống dòng */
-            word-break: break-word; /* Ngắt từ khi cần */
- 	    max-width: 100%;
-        }
+        
+}
+#typing-box {
+    height: 50px; /* hoặc tùy chỉnh, miễn sao đủ chứa 1 dòng text */
+    overflow: hidden;
+    white-space: nowrap;
+}
+.cursor {
+    display: inline-block;
+    width: 3px;
+    animation: blink 1s infinite;
+    color: #4CAF50;
+}
+
+@keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+}
 
         .grid-container {
             display: grid;
@@ -240,11 +244,6 @@
         padding: 0 10px;
     }
 
-    .typing-text {
-        font-size: 1.2rem;
-        padding: 5px;
-        text-align: center;
-    }
 
     .subject-btn {
         padding: 20px 10px;
@@ -263,8 +262,9 @@
     }
 }
 
-
-		
+ .typing-text {
+	color: #4CAF50;
+}
     </style>
 </head>
 <body>
@@ -278,8 +278,8 @@
         <div class="particles" id="particles"></div>
         
         <header>
-            <div class="header-content">
-                <div class="typing-text" id="typing-text"></div>
+            <div class="typing-box">
+  	<span id="typing-content" class="typing-text"></span><span class="cursor">|</span>
             </div>
         </header>
 
@@ -354,17 +354,17 @@
         let typingSpeed = 100;
         
         function typeText() {
-            const typingElement = document.getElementById('typing-text');
+            const typingContent = document.getElementById('typing-content');
             const currentMessage = messages[messageIndex];
             
             if (isDeleting) {
                 // Backspace effect
-                typingElement.textContent = currentMessage.substring(0, charIndex - 1);
+                typingContent.textContent = currentMessage.substring(0, charIndex - 1);
                 charIndex--;
                 typingSpeed = 50; // Faster when deleting
             } else {
                 // Typing effect
-                typingElement.textContent = currentMessage.substring(0, charIndex + 1);
+                typingContent.textContent = currentMessage.substring(0, charIndex + 1);
                 charIndex++;
                 typingSpeed = 100; // Normal typing speed
             }
