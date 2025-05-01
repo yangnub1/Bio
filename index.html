@@ -85,6 +85,9 @@
             border-right: 3px solid #4CAF50;
             white-space: nowrap;
             overflow: hidden;
+	    white-space: normal; /* Cho phép xuống dòng */
+            word-break: break-word; /* Ngắt từ khi cần */
+ 	    max-width: 100%;
         }
 
         .grid-container {
@@ -224,35 +227,44 @@
             animation: introAnimation 2.5s forwards;
         }
 
-        @media (max-width: 768px) {
-            .grid-container {
-                grid-template-columns: repeat(2, 1fr);
-                gap: 20px;
-            }
-            
-            .intro-text {
-                font-size: 4rem;
-            }
-            
-            .typing-text {
-                font-size: 1.5rem;
-            }
-            
-            .subject-btn {
-                padding: 30px 15px;
-                font-size: 1.2rem;
-            }
-        }
+  @media (max-width: 768px) {
+    .grid-container {
+        grid-template-columns: repeat(2, 1fr);
+        padding: 10px;
+        gap: 15px;
+    }
 
-        @media (max-width: 480px) {
-            .grid-container {
-                grid-template-columns: 1fr;
-            }
-            
-            .intro-text {
-                font-size: 3rem;
-            }
-        }
+    .intro-text {
+        font-size: 2.5rem;
+        text-align: center;
+        padding: 0 10px;
+    }
+
+    .typing-text {
+        font-size: 1.2rem;
+        padding: 5px;
+        text-align: center;
+    }
+
+    .subject-btn {
+        padding: 20px 10px;
+        font-size: 1rem;
+        min-height: 100px;
+    }
+
+    header {
+        padding: 20px 0;
+        height: auto;
+    }
+
+    .header-content {
+        flex-direction: column;
+        height: auto;
+    }
+}
+
+
+		
     </style>
 </head>
 <body>
