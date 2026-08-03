@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Chị Nào...</title>
+  <title>Chị Nào... ✨💖</title>
   <style>
     /* 1. Nền hồng đen sang xịn mịn & Căn giữa màn hình */
     body {
@@ -11,6 +11,7 @@
       padding: 0;
       min-height: 100vh;
       display: flex;
+      flex-direction: column;
       justify-content: center;
       align-items: center;
       /* Nền chuyển màu từ đen sang hồng đậm kiểu Aesthetic */
@@ -24,7 +25,7 @@
     .card-container {
       position: relative;
       z-index: 10;
-      padding: 20px;
+      padding: 25px;
       /* Hiệu ứng kính mờ (Glassmorphism / Blur) */
       background: rgba(255, 182, 193, 0.08);
       backdrop-filter: blur(12px);
@@ -33,25 +34,25 @@
       border: 1px solid rgba(255, 105, 180, 0.3);
       box-shadow: 0 8px 32px 0 rgba(255, 20, 147, 0.25);
       text-align: center;
+      max-width: 340px;
+      width: 90%;
     }
 
-    /* 3. Đặt style & Border xịn cho ảnh + Animation nhịp đập nhẹ */
+    /* 3. Đặt style & Border cho ảnh + Animation nhịp đập nhẹ */
     .card-container img {
-      width: 300px;
-      height: 380px;
+      width: 280px;
+      height: 350px;
       object-fit: cover;
       border-radius: 16px;
-      /* Viền gradient hồng néon lung linh */
       border: 4px solid transparent;
       background: linear-gradient(to bottom right, #ff758c, #ff7eb3) border-box;
       box-shadow: 0 0 25px rgba(255, 117, 140, 0.6);
-      /* Hiệu ứng phấp phới/đập nhẹ */
       animation: pulse 3s infinite ease-in-out;
     }
 
     /* Caption chữ phía dưới ảnh */
     .caption {
-      margin-top: 15px;
+      margin-top: 12px;
       color: #ffb6c1;
       font-size: 1.2rem;
       font-weight: 600;
@@ -66,12 +67,100 @@
         box-shadow: 0 0 25px rgba(255, 117, 140, 0.6);
       }
       50% {
-        transform: scale(1.03);
+        transform: scale(1.02);
         box-shadow: 0 0 40px rgba(255, 105, 180, 0.9);
       }
     }
 
-    /* 4. Style cho Tim, Hoa, Lá, Cành rơi */
+    /* 4. Đĩa nhạc xoay (Vinyl Record) */
+    .disc-wrapper {
+      position: relative;
+      margin: 15px auto 5px auto;
+      width: 80px;
+      height: 80px;
+    }
+
+    .disc {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      background: repeating-radial-gradient(
+        #111,
+        #111 2px,
+        #222 3px,
+        #222 4px
+      );
+      border: 3px solid #ff7eb3;
+      box-shadow: 0 0 15px rgba(255, 105, 180, 0.5);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      animation: spin 4s linear infinite;
+      animation-play-state: paused; /* Mặc định dừng xoay */
+    }
+
+    /* Tâm đĩa nhạc */
+    .disc-center {
+      width: 25px;
+      height: 25px;
+      background: #ff4081;
+      border-radius: 50%;
+      border: 2px solid #fff;
+    }
+
+    /* Khi đang phát nhạc thì đĩa xoay */
+    .disc.playing {
+      animation-play-state: running;
+    }
+
+    @keyframes spin {
+      100% { transform: rotate(360deg); }
+    }
+
+    /* 5. Bộ điều khiển âm nhạc (Player Controls) */
+    .audio-controls {
+      margin-top: 15px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .btn-play {
+      background: linear-gradient(135deg, #ff758c, #ff7eb3);
+      color: white;
+      border: none;
+      padding: 10px 24px;
+      border-radius: 20px;
+      font-weight: bold;
+      cursor: pointer;
+      box-shadow: 0 4px 15px rgba(255, 117, 140, 0.4);
+      transition: all 0.3s ease;
+      font-size: 0.95rem;
+    }
+
+    .btn-play:hover {
+      transform: scale(1.05);
+      box-shadow: 0 6px 20px rgba(255, 105, 180, 0.7);
+    }
+
+    /* Thanh tua nhạc & Thanh âm lượng */
+    .control-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      width: 100%;
+      color: #ffb6c1;
+      font-size: 0.85rem;
+    }
+
+    .control-row input[type="range"] {
+      flex: 1;
+      accent-color: #ff7eb3;
+      cursor: pointer;
+    }
+
+    /* 6. Style cho Tim, Hoa, Lá, Cành rơi */
     .falling-item {
       position: absolute;
       top: -50px;
@@ -81,64 +170,162 @@
       animation: fall linear infinite;
     }
 
-    /* Animation rơi xoay vòng sống động */
     @keyframes fall {
       0% {
         transform: translateY(0) rotate(0deg) scale(0.8);
         opacity: 1;
       }
-      50% {
-        opacity: 0.8;
-      }
+      50% { opacity: 0.8; }
       100% {
         transform: translateY(105vh) rotate(360deg) scale(1.2);
         opacity: 0;
       }
     }
+
+    /* Hidden YouTube Player */
+    #yt-player { display: none; }
   </style>
 </head>
 <body>
 
-  <!-- Khung ảnh chính -->
+  <!-- Khung ảnh & Trình phát nhạc -->
   <div class="card-container">
     <img src="chita.jpg" alt="Chị nào...">
     <div class="caption">Chị nào... ✨💖</div>
+
+    <!-- Đĩa nhạc xoay -->
+    <div class="disc-wrapper">
+      <div class="disc" id="disc">
+        <div class="disc-center"></div>
+      </div>
+    </div>
+
+    <!-- Bảng điều khiển nhạc -->
+    <div class="audio-controls">
+      <button class="btn-play" id="playBtn" onclick="togglePlay()">▶️ Phát nhạc</button>
+      
+      <!-- Thanh tua nhạc -->
+      <div class="control-row">
+        <span>⏱️</span>
+        <input type="range" id="seekBar" value="0" min="0" max="100" step="0.1" onchange="seekTo(this.value)">
+      </div>
+
+      <!-- Thanh chỉnh âm lượng -->
+      <div class="control-row">
+        <span>🔊</span>
+        <input type="range" id="volumeBar" value="80" min="0" max="100" oninput="setVolume(this.value)">
+      </div>
+    </div>
   </div>
 
-  <!-- JavaScript tự động tạo hiệu ứng hoa lá tim rơi liên tục -->
+  <!-- Thẻ chứa YouTube Iframe ẩn -->
+  <div id="yt-player"></div>
+
   <script>
-    // Danh sách icon Trái tim, Hoa, Cành, Lá hòe
+    /* ================= 1. XỬ LÝ NHẠC YOUTUBE ================= */
+    var tag = document.createElement('script');
+    tag.src = "https://www.youtube.com/iframe_api";
+    var firstScriptTag = document.getElementsByTagName('script')[0];
+    firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+    var player;
+    var isPlaying = false;
+    
+    // 💡 THAY ID VIDEO YOUTUBE BẠN THÍCH VÀO ĐÂY (Ví dụ link: https://www.youtube.com/watch?v=dQw4w9WgXcQ -> ID là dQw4w9WgXcQ)
+    const youtubeVideoId = 'dQw4w9WgXcQ'; 
+
+    function onYouTubeIframeAPIReady() {
+      player = new YT.Player('yt-player', {
+        height: '0',
+        width: '0',
+        videoId: youtubeVideoId,
+        playerVars: {
+          'playsinline': 1,
+          'autoplay': 0
+        },
+        events: {
+          'onReady': onPlayerReady,
+          'onStateChange': onPlayerStateChange
+        }
+      });
+    }
+
+    function onPlayerReady(event) {
+      player.setVolume(80); // Âm lượng mặc định 80%
+      // Cập nhật thanh thời lượng liên tục
+      setInterval(updateSeekBar, 500);
+    }
+
+    function onPlayerStateChange(event) {
+      const disc = document.getElementById('disc');
+      const playBtn = document.getElementById('playBtn');
+
+      // Khi video đang phát (YT.PlayerState.PLAYING = 1)
+      if (event.data == YT.PlayerState.PLAYING) {
+        isPlaying = true;
+        disc.classList.add('playing');
+        playBtn.innerText = "⏸️ Tạm dừng";
+      } else {
+        isPlaying = false;
+        disc.classList.remove('playing');
+        playBtn.innerText = "▶️ Phát nhạc";
+      }
+    }
+
+    function togglePlay() {
+      if (!player) return;
+      if (isPlaying) {
+        player.pauseVideo();
+      } else {
+        player.playVideo();
+      }
+    }
+
+    function setVolume(val) {
+      if (player) {
+        player.setVolume(val);
+      }
+    }
+
+    function updateSeekBar() {
+      if (player && isPlaying && player.getDuration) {
+        const currentTime = player.getCurrentTime();
+        const duration = player.getDuration();
+        if (duration > 0) {
+          document.getElementById('seekBar').value = (currentTime / duration) * 100;
+        }
+      }
+    }
+
+    function seekTo(val) {
+      if (player && player.getDuration) {
+        const duration = player.getDuration();
+        const targetTime = (val / 100) * duration;
+        player.seekTo(targetTime, true);
+      }
+    }
+
+    /* ================= 2. HIỆU ỨNG HOA LÁ TIM RƠI ================= */
     const icons = ['💖', '❤️', '🌸', '🌺', '🌹', '🍃', '🌿', '✨', '💐', '🌷'];
 
     function createFallingItem() {
       const item = document.createElement('div');
       item.classList.add('falling-item');
-      
-      // Chọn ngẫu nhiên 1 icon
       item.innerText = icons[Math.floor(Math.random() * icons.length)];
-      
-      // Đặt vị trí xuất hiện ngẫu nhiên theo chiều ngang
       item.style.left = Math.random() * 100 + 'vw';
-      
-      // Kích thước ngẫu nhiên
       item.style.fontSize = (Math.random() * 20 + 15) + 'px';
       
-      // Thời gian rơi ngẫu nhiên (từ 4s - 9s)
       const duration = Math.random() * 5 + 4;
       item.style.animationDuration = duration + 's';
-      
-      // Độ mờ ngẫu nhiên
       item.style.opacity = Math.random() * 0.7 + 0.3;
 
       document.body.appendChild(item);
 
-      // Tự xóa phần tử sau khi rơi xong để nhẹ trình duyệt
       setTimeout(() => {
         item.remove();
       }, duration * 1000);
     }
 
-    // Tần suất tạo item mới (mỗi 300ms tạo 1 cái)
     setInterval(createFallingItem, 300);
   </script>
 
